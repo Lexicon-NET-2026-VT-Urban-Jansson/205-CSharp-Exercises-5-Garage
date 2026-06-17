@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Net.Security;
 using System.Text;
 
 namespace Garage
@@ -11,23 +12,26 @@ namespace Garage
     // ------------------------------------------------------------------------
     // *** Class Garage ***
     // ------------------------------------------------------------------------
-    //
-    // IEnumerable, men funkar INTE:
-    // internal class MyGarage<T>(int numberOfParkingLots) where T : Vehicle, IEnumerable<T>
-    //
-    // Men detta funkar:
     internal class MyGarage<T>(int numberOfParkingLots) : IEnumerable<T> where T : Vehicle
     {
         // --- Fields ---------------------------------------------------------
-        private readonly T?[] _parkingLots = new T[numberOfParkingLots];
+        private readonly T[] _parkingLots = new T[numberOfParkingLots];
         private int _currentCount = 0;
 
         // --- Properties -----------------------------------------------------
-        public int NumberOfParkingLots { get; } = numberOfParkingLots;
+        // TODO DONE: REDESIGN - DETTA ÄR FEL!
+        //public int NumberOfParkingLots { get; } = numberOfParkingLots;
 
 
         // --- Private Methods ------------------------------------------------
         //
+        // --------------------------------------------------------------------
+        // *** FixLicensePlate ***
+        // --------------------------------------------------------------------
+        private string FixLicensePlate(string licensePlate)
+        {
+            return licensePlate.Trim().ToUpper();
+        }
         // --------------------------------------------------------------------
         // *** GetVehicleIndex ***
         // --------------------------------------------------------------------
@@ -69,11 +73,23 @@ namespace Garage
         // --- Public Methods -------------------------------------------------
         //
         // --------------------------------------------------------------------
+        // *** GarageIsFull ***
+        // --------------------------------------------------------------------
+        public bool GarageIsFull()
+        {
+            return _currentCount >= _parkingLots.Length;
+        }
+
+
+        // --------------------------------------------------------------------
         // *** FindVehicle ***
         // --------------------------------------------------------------------
         public bool FindVehicle(string licensePlate)
         {
-            foreach (var vehicle in _parkingLots)
+            if (_currentCount == 0) return false;
+            
+            licensePlate = FixLicensePlate(licensePlate);
+            foreach (T vehicle in _parkingLots) 
                 if (vehicle != null && vehicle.LicensePlate == licensePlate) return true;
             
             return false;
@@ -81,31 +97,34 @@ namespace Garage
 
 
         // --------------------------------------------------------------------
-        // *** FindVehicleLINQ ***
+        // *** FindVehiclesWithLINQ ***
         // --------------------------------------------------------------------
-        public void FindVehicleLINQ()
+        public void FindVehiclesWithLINQ()
         {
             //var parkingLots = _parkingLots
-                //.Where(item => item?.NumberOfWheels == 2);
-                //.Select(item => item?.Model);
+            //.Where(item => item?.NumberOfWheels == 2);
+            //.Select(item => item?.Model);
 
+            // TODO: REDESIGN - DETTA ÄR FEL! = HELT VALFRIA URVAL!
+            // ENDAST FÖR TEST!
             var parkingLots = _parkingLots
                 .Where(item => (
                     (
-                    (item?.LicensePlate == "ABC123") || 
+                    (item?.LicensePlate == "ABC123") ||
                     (item?.LicensePlate == "DEF789") ||
                     (item?.LicensePlate == "DEF456") ||
                     (item?.LicensePlate == "GHI123")
-                    ) 
-                    && 
+                    )
+                    &&
                     (item?.NumberOfWheels == 2)
                     ));
 
-            foreach (var vehicle in parkingLots)
-            {
+            // TODO: REDESIGN - DETTA ÄR FEL! = ALLA UTSKRIFTER I UI!
+            // ENDAST FÖR TEST!
+            foreach (T vehicle in parkingLots)
                 if (vehicle != null) Console.WriteLine($" {vehicle.LicensePlate}: {vehicle.Model}");
-            }    
         }
+
 
         // --------------------------------------------------------------------
         // *** AddToGarage ***
@@ -136,25 +155,19 @@ namespace Garage
         public bool RemoveFromGarage(string licensePlate)
         {
             bool result = false;
+            licensePlate = FixLicensePlate(licensePlate);
 
             int vehicleIndex = GetVehicleIndex(licensePlate);
             if (vehicleIndex > -1) 
             {
-                _parkingLots[vehicleIndex] = null;
+                // TODO DONE: REDESIGN - DETTA ÄR FEL!
+                //_parkingLots[vehicleIndex] = null;
+
+                _parkingLots[vehicleIndex] = default!;
                 _currentCount--;
                 result = true;
             }
-            
             return result;
-        }
-
-
-        // --------------------------------------------------------------------
-        // *** GarageIsFull ***
-        // --------------------------------------------------------------------
-        public bool GarageIsFull() 
-        {
-            return _currentCount >= _parkingLots.Length;
         }
 
 
@@ -163,6 +176,7 @@ namespace Garage
         // --------------------------------------------------------------------
         public void ListAllVehicles() 
         {
+            // TODO: REDESIGN - DETTA ÄR FEL! = ALLA UTSKRIFTER I UI!
             string oneLine = "-----------------------------------------";
             Console.WriteLine();
             Console.WriteLine(oneLine);
@@ -173,7 +187,7 @@ namespace Garage
                 Console.WriteLine(" Garaget är tomt!");
             else
             {
-                string vehicleType; 
+                string vehicleType;
                 foreach (var vehicle in _parkingLots)
                 {
                     if (vehicle != null)
@@ -182,6 +196,16 @@ namespace Garage
                         Console.WriteLine($" {vehicle.LicensePlate}: {vehicleType} - {vehicle.Model}");
                     }
                 }
+
+                // TODO DONE: REDESIGN - DETTA ÄR FEL!
+                //foreach (var vehicle in _parkingLots)
+                //{
+                //    if (vehicle != null)
+                //    {
+                //        vehicleType = GetVehicleType(vehicle);
+                //        Console.WriteLine($" {vehicle.LicensePlate}: {vehicleType} - {vehicle.Model}");
+                //    }
+                //}
             }
             Console.WriteLine(oneLine);
         }
@@ -205,8 +229,19 @@ namespace Garage
                     else
                         types.Add(vehicleType, 1);
                 }
+
+                // TODO DONE: REDESIGN - DETTA ÄR FEL!
+                //if (vehicle != null)
+                //{
+                //    vehicleType = GetVehicleType(vehicle);
+                //    if (types.ContainsKey(vehicleType))
+                //        types[vehicleType]++;
+                //    else
+                //        types.Add(vehicleType, 1);
+                //}
             }
 
+            // TODO: REDESIGN - DETTA ÄR FEL! = ALLA UTSKRIFTER I UI!
             string oneLine = "-----------------------------------------";
             //Console.WriteLine();
             Console.WriteLine(oneLine);
@@ -224,14 +259,35 @@ namespace Garage
         // *** GetEnumerator ***
         // --------------------------------------------------------------------
         //
-        // Lånat lite från NETGame! 😉
-        // Men funkar inget vidare ...
+        // Lånat 'lite' från NETGame! 😉
         //
-        // TODO - Check GetEnumerator()
+        // TODO DONE: Check GetEnumerator() = FUNKAR UTMÄRKT NU!
         public IEnumerator<T> GetEnumerator()
         {
-            foreach (T? item in _parkingLots) if (item != null) yield return item; 
+            foreach (T item in _parkingLots) if (item != null) yield return item; 
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        // --------------------------------------------------------------------
+        // *** TestGetEnumerator ***
+        // --------------------------------------------------------------------
+        public void TestGetEnumerator()
+        {
+            // TODO: ENDAST FÖR TEST AV GETENUMERATOR() 
+            DebugAndTest.DoDebug(true, "");
+            DebugAndTest.DoDebug(true, "==================================================");
+            DebugAndTest.DoDebug(true, " KÖR TEST: _garage.TestGetEnumerator()");
+            DebugAndTest.DoDebug(true, " TESTAR: foreach (var item in _parkingLots)");
+            DebugAndTest.DoDebug(true, "==================================================");
+
+            foreach (var item in _parkingLots)
+            {
+                if (item != null)
+                    DebugAndTest.DoDebug(true, " TestGetEnumerator() Funkar!");
+                else
+                    DebugAndTest.DoDebug(true, " ERROR! item == null");
+            }
+
+            DebugAndTest.DoDebug(true, "==================================================");
+        }
     }
 }

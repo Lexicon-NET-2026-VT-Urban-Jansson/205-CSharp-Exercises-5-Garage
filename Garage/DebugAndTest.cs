@@ -239,7 +239,13 @@ namespace Garage
             Console.WriteLine("-----------------------------------------");
             Console.WriteLine(" TESTAR LINQ!");
             Console.WriteLine("-----------------------------------------");
-            _handler.FindVehicleInGarageLINQ();
+            _handler.FindVehicleInGarageWithLINQ();
+            Console.WriteLine("-----------------------------------------");
+            
+
+            // ENDAST FÖR TEST AV GETENUMERATOR()
+            _handler.TestGetEnumerator();
+
 
             DoDebug(false, msgTestStopp);
             DoDebug(false, "");

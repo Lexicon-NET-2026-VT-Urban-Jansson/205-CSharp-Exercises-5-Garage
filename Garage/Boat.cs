@@ -8,10 +8,10 @@ namespace Garage
     // ------------------------------------------------------------------------
     // *** Class Boat ***
     // ------------------------------------------------------------------------
-    internal class Boat(int lenght, string licensePlate, string model, int modelYear, int numberOfWheels, string color)
+    internal class Boat(int length, string licensePlate, string model, int modelYear, int numberOfWheels, string color)
         : Vehicle(licensePlate, model, modelYear, numberOfWheels, color)
     {
         // --- Properties -----------------------------------------------------
-        public int Lenght { get; } = lenght;
+        public int Length { get; } = length;
     }
 }

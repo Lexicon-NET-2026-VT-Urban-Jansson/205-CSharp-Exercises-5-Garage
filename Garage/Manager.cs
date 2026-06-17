@@ -38,7 +38,7 @@ namespace Garage
             // Run Menu
             Console.WriteLine("Här ska huvumenyn visas...");
 
-            // TODO : The number of parking lots should be set by input from Menu/UI, not PREFIXED_LOTS!
+            // TODO: The number of parking lots should be set by input from Menu/UI, not PREFIXED_LOTS!
             //_handler = new(????);
             //InitGarageAndPopulateVehicle(_handler);
         }

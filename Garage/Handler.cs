@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -16,35 +17,42 @@ namespace Garage
     {
         // --- Fields ---------------------------------------------------------
         private readonly List<Vehicle>? _vehicles = []; // <-- Simplify new expression
-        private MyGarage<Vehicle>? _garage;
+
+        // TODO DONE: REDESIGN - DETTA ÄR FEL! 
+        //private MyGarage<Vehicle>? _garage;
+        private readonly MyGarage<Vehicle> _garage = new(parkingLots);
 
         // --- Properties -----------------------------------------------------
-        public int NumberOfParkingLots { get; } = parkingLots;
+        // TODO DONE: REDESIGN - DETTA ÄR FEL!
+        //public int NumberOfParkingLots { get; } = parkingLots;
 
 
 
         // --------------------------------------------------------------------
         // *** FixLicensePlate ***
         // --------------------------------------------------------------------
-        private string FixLicensePlate(string lp)
-        {
-            return lp.Trim().ToUpper();
-        }
+        // TODO DONE: REDESIGN - DETTA ÄR FEL!
+        //private string FixLicensePlate(string lp)
+        //{
+        //    return lp.Trim().ToUpper();
+        //}
 
 
         // --------------------------------------------------------------------
         // *** InitGarage ***
         // --------------------------------------------------------------------
+        // TODO: REDESIGN - DETTA ÄR FEL!
         public void InitGarage()
         {
-            string preFix = "_handler.InitGarage -> ";
-            DebugAndTest.DoDebug(false, preFix + $"Sätter NumberOfParkingLots till {NumberOfParkingLots}");
-            DebugAndTest.DoDebug(false, preFix + "Instansierar Garage: _garage = new MyGarage<Vehicle>(NumberOfParkingLots)");
+            // TODO DONE: REDESIGN - DETTA ÄR FEL!
+            //string preFix = "_handler.InitGarage -> ";
+            //DebugAndTest.DoDebug(false, preFix + $"Sätter NumberOfParkingLots till {NumberOfParkingLots}");
+            //DebugAndTest.DoDebug(false, preFix + "Instansierar Garage: _garage = new MyGarage<Vehicle>(NumberOfParkingLots)");
 
             // Create a new Garage with a number of parking lots
-            _garage = new MyGarage<Vehicle>(NumberOfParkingLots);
+            //_garage = new MyGarage<Vehicle>(NumberOfParkingLots);
 
-            DebugAndTest.DoDebug(false, preFix + $"Nya garaget har {_garage.NumberOfParkingLots} parkeringsplatser");
+            //DebugAndTest.DoDebug(false, preFix + $"Nya garaget har {_garage.NumberOfParkingLots} parkeringsplatser");
         }
 
 
@@ -53,23 +61,35 @@ namespace Garage
         // --------------------------------------------------------------------
         public bool FindVehicleInGarage(string licensePlate)
         {
-            licensePlate = FixLicensePlate(licensePlate);
-            bool result = _garage!.FindVehicle(licensePlate);
+            bool result = _garage.FindVehicle(licensePlate);
 
-            string preFix = "_handler.FindVehicleInGarage(licensePlate) -> ";
-            if (!result) DebugAndTest.DoDebug(false, preFix + $"Fordon {licensePlate} finns inte i garaget");
-            
+            if (result)
+            {
+                string preFix = "_handler.FindVehicleInGarage(licensePlate) -> ";
+                DebugAndTest.DoDebug(false, preFix + $"Fordon {licensePlate} finns inte i garaget");
+            } 
+
             return result;
         }
 
 
         // --------------------------------------------------------------------
-        // *** FindVehicleInGarageLINQ ***
+        // *** FindVehicleInGarageWithLINQ ***
         // --------------------------------------------------------------------
-        public void FindVehicleInGarageLINQ()
+        public void FindVehicleInGarageWithLINQ()
         {
-            if (_garage is null) return;
-            _garage.FindVehicleLINQ();
+            // TODO: REDESIGN - DETTA ÄR FEL!
+            _garage.FindVehiclesWithLINQ();
+        }
+
+
+        // --------------------------------------------------------------------
+        // *** TestGetEnumerator ***
+        // --------------------------------------------------------------------
+        public void TestGetEnumerator()
+        {
+            // TODO: ENDAST FÖR TEST AV GETENUMERATOR() 
+            _garage.TestGetEnumerator();
         }
 
 
@@ -78,23 +98,25 @@ namespace Garage
         // --------------------------------------------------------------------
         public bool AddVehicleToGarage(string licensePlate)
         {
-            licensePlate = FixLicensePlate(licensePlate);
-
             bool result = false;
             string preFix = "_handler.AddVehicleToGarage(licensePlate) -> ";
             
+            // TODO DONE: REDESIGN - DETTA ÄR FEL!
+            //licensePlate = FixLicensePlate(licensePlate);
+
             // Check if _garage is null
-            if (_garage is null)
-            {
-                DebugAndTest.DoDebug(false, preFix + "ERROR! _garage är null");
-                return result;
-            }
+            //if (_garage is null)
+            //{
+            //    DebugAndTest.DoDebug(false, preFix + "ERROR! _garage är null");
+            //    return result;
+            //}
             // Check if _vehicles is null
-            if (_vehicles is null)
-            {
-                DebugAndTest.DoDebug(false, preFix + "ERROR! _vehicles är null");
-                return result;
-            }
+            //if (_vehicles is null)
+            //{
+            //    DebugAndTest.DoDebug(false, preFix + "ERROR! _vehicles är null");
+            //    return result;
+            //}
+
             // Check if garage is full
             if (_garage.GarageIsFull())
             {
@@ -127,8 +149,10 @@ namespace Garage
         // --------------------------------------------------------------------
         public bool RemoveVehicleFromGarage(string licensePlate)
         {
-            licensePlate = FixLicensePlate(licensePlate);
-            bool result = _garage!.RemoveFromGarage(licensePlate);
+            // TODO DONE: REDESIGN - DETTA ÄR FEL!
+            //licensePlate = FixLicensePlate(licensePlate);
+            
+            bool result = _garage.RemoveFromGarage(licensePlate);
 
             string msg = $"_handler.RemoveVehicleFromGarage(licensePlate) -> Fordon {licensePlate} ";
             msg += result ? "har av avregistrerats från garaget" : "kan inte avregistreras från garaget";
@@ -139,14 +163,40 @@ namespace Garage
 
 
         // --------------------------------------------------------------------
-        // *** VehicleExist ***
+        // *** AddToVehicleNEW ***
         // --------------------------------------------------------------------
-        public Vehicle? VehicleExist(string licensePlate)
+        public void AddToVehicleNEW(string vehicleType, object typeSpecific, string licensePlate, string model, int modelYear, int numberOfWheels, string color)
         {
-            licensePlate = FixLicensePlate(licensePlate);
-            return _vehicles!.Find(x => x.LicensePlate == licensePlate);
-        }
+            string preFix = "_handler.AddToVehicle(vehicle) -> ";
+            // Check if null
+            if (_vehicles is null)
+            {
+                DebugAndTest.DoDebug(false, preFix + "ERROR! _vehicles is null");
+                return;
+            }
 
+            vehicleType = vehicleType.ToUpper().Trim();
+            switch (vehicleType)
+            {
+                case "BIL" when typeSpecific is string fuelType:
+                    _vehicles.Add(new Car(fuelType, licensePlate, model, modelYear, numberOfWheels, color));
+                    break;
+                case "FLYGPLAN" when typeSpecific is int numberOfEngines:
+                    _vehicles.Add(new Airplane(numberOfEngines, licensePlate, model, modelYear, numberOfWheels, color));
+                    break;
+                case "MOTORCYKEL" when typeSpecific is int cylinderVolume:
+                    _vehicles.Add(new Motorcycle(cylinderVolume, licensePlate, model, modelYear, numberOfWheels, color));
+                    break;
+                case "BUSS" when typeSpecific is int numberOfSeats:
+                    _vehicles.Add(new Bus(numberOfSeats, licensePlate, model, modelYear, numberOfWheels, color));
+                    break;
+                case "BÅT" when typeSpecific is int length:
+                    _vehicles.Add(new Boat(length, licensePlate, model, modelYear, numberOfWheels, color));
+                    break;
+                default:
+                    break;
+            }
+        }
 
         // --------------------------------------------------------------------
         // *** AddVehicle ***
@@ -159,6 +209,30 @@ namespace Garage
                 DebugAndTest.DoDebug(false, preFix + "ERROR! _vehicles is null");
             else
                 _vehicles.Add(vehicle);
+
+            // new Car("Diesel", licensePlate, "Volvo XC90", 2010, 4, "Black")
+
+            //AddToVehicle(new Airplane(2, licensePlate, "Cessna 404 Titan II", 2011, 2, "Blue"));
+            //AddToVehicle(new Car("Diesel", licensePlate, "Volvo XC90", 2010, 4, "Black"));
+        }
+
+
+        // --------------------------------------------------------------------
+        // *** VehicleExist ***
+        // --------------------------------------------------------------------
+        public Vehicle? VehicleExist(string licensePlate)
+        {
+            // TODO DONE: REDESIGN - DETTA ÄR FEL!
+            //licensePlate = FixLicensePlate(licensePlate);
+            licensePlate = licensePlate.Trim().ToUpper();
+
+            // Check if null
+            //if (_vehicles is null)
+            //    DebugAndTest.DoDebug(false, preFix + "ERROR! _vehicles is null");
+            //else
+            //    _vehicles.Add(vehicle);
+
+            return _vehicles!.Find(x => x.LicensePlate == licensePlate);
         }
 
 
@@ -203,31 +277,38 @@ namespace Garage
         public void PopulateVehicle()
         {
             string licensePlate = "ABC123";
-            AddToVehicle(new Car("Diesel", licensePlate, "Volvo XC90", 2010, 4, "Black"));
+            //AddToVehicle(new Car("Diesel", licensePlate, "Volvo XC90", 2010, 4, "Black"));
+            AddToVehicleNEW("Bil", "Diesel", licensePlate, "Volvo XC90", 2010, 4, "Black");
             DebugVehicle(licensePlate);
 
             licensePlate = "ABC456";
-            AddToVehicle(new Airplane(2, licensePlate, "Cessna 404 Titan II", 2011, 2, "Blue"));
+            //AddToVehicle(new Airplane(2, licensePlate, "Cessna 404 Titan II", 2011, 2, "Blue"));
+            AddToVehicleNEW("Flygplan", 2, licensePlate, "Cessna 404 Titan II", 2011, 2, "Blue");
             DebugVehicle(licensePlate);
 
             licensePlate = "ABC789";
-            AddToVehicle(new Bus(22, licensePlate, "Scania OmniExpress", 2012, 4, "Green"));
+            //AddToVehicle(new Bus(22, licensePlate, "Scania OmniExpress", 2012, 4, "Green"));
+            AddToVehicleNEW("Buss", 22, licensePlate, "Scania OmniExpress", 2012, 4, "Green");
             DebugVehicle(licensePlate);
 
             licensePlate = "DEF123";
-            AddToVehicle(new Motorcycle(125, licensePlate, "Harley-Davidson XL1200", 2013, 2, "Red"));
+            //AddToVehicle(new Motorcycle(125, licensePlate, "Harley-Davidson XL1200", 2013, 2, "Red"));
+            AddToVehicleNEW("Motorcykel", 125, licensePlate, "Harley-Davidson XL1200", 2013, 2, "Red");
             DebugVehicle(licensePlate);
 
             licensePlate = "DEF456";
             AddToVehicle(new Boat(12, licensePlate, "BMW Oracle Racing 90", 2014, 2, "White"));
+            AddToVehicleNEW("Båt", 12, licensePlate, "BMW Oracle Racing 90", 2014, 2, "White");
             DebugVehicle(licensePlate);
 
             licensePlate = "DEF789";
-            AddToVehicle(new Car("Gasoline", licensePlate, "Ferrari SF90 Stradale", 2015, 4, "Yellow"));
+            //AddToVehicle(new Car("Gasoline", licensePlate, "Ferrari SF90 Stradale", 2015, 4, "Yellow"));
+            AddToVehicleNEW("Bil", "Gasoline", licensePlate, "Ferrari SF90 Stradale", 2015, 4, "Yellow");
             DebugVehicle(licensePlate);
 
             licensePlate = "GHI123";
-            AddToVehicle(new Boat(12, licensePlate, "Candela C-8", 2016, 2, "White"));
+            //AddToVehicle(new Boat(12, licensePlate, "Candela C-8", 2016, 2, "White"));
+            AddToVehicleNEW("Båt", 12, licensePlate, "Candela C-8", 2016, 2, "Green");
             DebugVehicle(licensePlate);
         }
         // --------------------------------------------------------------------
