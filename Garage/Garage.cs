@@ -105,24 +105,35 @@ namespace Garage
             //.Where(item => item?.NumberOfWheels == 2);
             //.Select(item => item?.Model);
 
-            // TODO: REDESIGN - DETTA ÄR FEL! = HELT VALFRIA URVAL!
+            // TODO: REDESIGN - DETTA ÄR FEL! = SKA VARA HELT VALFRIA URVAL!
             // ENDAST FÖR TEST!
+            //var parkingLots = _parkingLots
+            //    .Where(item => (
+            //        (
+            //        (item?.LicensePlate == "ABC123") ||
+            //        (item?.LicensePlate == "DEF789") ||
+            //        (item?.LicensePlate == "DEF456") ||
+            //        (item?.LicensePlate == "GHI123")
+            //        )
+            //        &&
+            //        (item?.NumberOfWheels == 2)
+            //        ));
+
             var parkingLots = _parkingLots
-                .Where(item => (
-                    (
-                    (item?.LicensePlate == "ABC123") ||
-                    (item?.LicensePlate == "DEF789") ||
-                    (item?.LicensePlate == "DEF456") ||
-                    (item?.LicensePlate == "GHI123")
-                    )
-                    &&
-                    (item?.NumberOfWheels == 2)
-                    ));
+                .Where(item => (item?.NumberOfWheels == 2));
+
 
             // TODO: REDESIGN - DETTA ÄR FEL! = ALLA UTSKRIFTER I UI!
             // ENDAST FÖR TEST!
+            string oneLine = "------------------------------------------";
+            Console.WriteLine(oneLine);
+            Console.WriteLine(" Test av LINQ – Alla fordon med två hjul");
+            Console.WriteLine(oneLine);
+
             foreach (T vehicle in parkingLots)
                 if (vehicle != null) Console.WriteLine($" {vehicle.LicensePlate}: {vehicle.Model}");
+        
+            Console.WriteLine(oneLine);
         }
 
 
@@ -178,7 +189,7 @@ namespace Garage
         {
             // TODO: REDESIGN - DETTA ÄR FEL! = ALLA UTSKRIFTER I UI!
             string oneLine = "-----------------------------------------";
-            Console.WriteLine();
+            //Console.WriteLine();
             Console.WriteLine(oneLine);
             Console.WriteLine(" Registrerade fordon i garaget");
             Console.WriteLine(oneLine);
@@ -261,7 +272,7 @@ namespace Garage
         //
         // Lånat 'lite' från NETGame! 😉
         //
-        // TODO DONE: Check GetEnumerator() = FUNKAR UTMÄRKT NU!
+        // TODO: Check GetEnumerator()
         public IEnumerator<T> GetEnumerator()
         {
             foreach (T item in _parkingLots) if (item != null) yield return item; 

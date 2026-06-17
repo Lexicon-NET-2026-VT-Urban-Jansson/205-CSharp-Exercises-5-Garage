@@ -52,7 +52,7 @@ namespace Garage
         internal const bool DO_DEBUG = false;
 #endif
         internal const bool DEBUG_TO_CONSOLE = false;
-        internal const bool DO_TEST = true;
+        internal const bool DO_TEST = false;
 
         
         // --------------------------------------------------------------------
@@ -243,7 +243,7 @@ namespace Garage
             Console.WriteLine("-----------------------------------------");
             
 
-            // ENDAST FÖR TEST AV GETENUMERATOR()
+            // ENDAST FÖR TEST AV GETENUMERATOR() !
             _handler.TestGetEnumerator();
 
 

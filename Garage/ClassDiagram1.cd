@@ -10,61 +10,61 @@
   <Class Name="Garage.Manager">
     <Position X="3" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAABAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <HashCode>AAAAAgAABAAAAAAAAAEAAAAAAAAAAAAAAAAgAEAAAAI=</HashCode>
       <FileName>Manager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Garage.Handler">
     <Position X="5.75" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AQEAAAIAAAAAAAAAgAAAAAIAEQAAAECAEgAAAAAAIAA=</HashCode>
+      <HashCode>AQFAAAIAAAAAAAAAoAAAAAoAEQIAAACAEgAAAAAAIAA=</HashCode>
       <FileName>Handler.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Garage.UI">
-    <Position X="3" Y="2.75" Width="2.25" />
+    <Position X="3" Y="3.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABAAhAAAEAAAAAAAAAQAAAgAAQIIAAAAAAAAARAAEA=</HashCode>
       <FileName>UI.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Garage.Vehicle">
-    <Position X="6" Y="5" Width="1.75" />
+    <Position X="7.5" Y="5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAgAAAAAAAAAAAAAAAAACAAAAgAgAAAAAA=</HashCode>
       <FileName>Vehicle.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Garage.Car">
-    <Position X="4" Y="5.5" Width="1.75" />
+    <Position X="5.5" Y="5.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
       <FileName>Car.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Garage.Motorcycle">
-    <Position X="6" Y="7.25" Width="1.75" />
+    <Position X="7.5" Y="7.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Motorcycle.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Garage.Airplane">
-    <Position X="8" Y="7.25" Width="1.75" />
+    <Position X="9.5" Y="7.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Airplane.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Garage.Boat">
-    <Position X="8" Y="5.5" Width="1.75" />
+    <Position X="9.5" Y="5.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Boat.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Garage.Bus">
-    <Position X="4" Y="7.25" Width="1.75" />
+    <Position X="5.5" Y="7.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Bus.cs</FileName>
@@ -73,7 +73,7 @@
   <Class Name="Garage.MyGarage&lt;T&gt;">
     <Position X="8.5" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AMAAQAAAAgAQIBEEAAAAAQBAAAIAAAAMAAQAAAAIAAQ=</HashCode>
+      <HashCode>AEAAQAAAAgAQIBAEIAAAAQBAAAIAAAAMAAQAAAAIAAQ=</HashCode>
       <FileName>Garage.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
